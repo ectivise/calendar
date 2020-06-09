@@ -1,13 +1,12 @@
 <template>
-  <div id="app">
-  <v-app id="inspire">
+<v-app id="inspire">
     <v-app id="inspire">
       <v-navigation-drawer
         v-model="drawer"
         app
       >
         <v-list dense>
-          <v-list-item link>
+          <v-list-item link to="/">
             <v-list-item-action>
               <v-icon>mdi-home</v-icon>
             </v-list-item-action>
@@ -15,12 +14,20 @@
               <v-list-item-title>Home</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item link>
+          <v-list-item link to="/calendar">
             <v-list-item-action>
-              <v-icon>mdi-email</v-icon>
+              <v-icon>mdi-calendar</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Contact</v-list-item-title>
+              <v-list-item-title>Calendar</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item link to="/holiday">
+            <v-list-item-action>
+              <v-icon>mdi-calendar-weekend-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Public Holidays</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -36,7 +43,7 @@
       </v-app-bar>
   
       <v-content>
-        <calendar/>
+        <router-view></router-view>
       </v-content>
       <v-footer
         color="indigo"
@@ -46,19 +53,15 @@
       </v-footer>
     </v-app>
   </v-app>
-</div>
 </template>
 
 <script>
-import calendar from "./components/calendar.vue"
 
 export default {
   
   name: 'App',
 
-  components: {
-    calendar,
-  },
+  components: {},
 
   data: () => ({
     drawer: false,
