@@ -76,7 +76,7 @@
         </v-layout>
       </v-row>
       <v-row justify="center">
-        <div class="calendar">
+        <div class="table">
           <v-simple-table :dense="dense" :fixed-header="fixedHeader" :height="height">
             <template v-slot:default>
               <thead>

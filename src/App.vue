@@ -30,6 +30,22 @@
               <v-list-item-title>Public Holidays</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item link to="/access_point">
+            <v-list-item-action>
+              <v-icon>mdi-access-point</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Access Point</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item link to="/raspberry_pi">
+            <v-list-item-action>
+              <v-icon>mdi-router-wireless</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Raspberry Pi</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
       </v-navigation-drawer>
   
