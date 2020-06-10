@@ -5,78 +5,80 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    holidays: [
-      {
-        id: 0,
-        name: "New Year's Day",
-        start: "2020-01-01",
-        end: "2020-01-01",
-        color: "red",
-      },
-      {
-        id: 1,
-        name: "Chinese New Year",
-        start: "2020-01-25",
-        end: "2020-01-26",
-        color: "red",
-      },
-      {
-        id: 2,
-        name: "Good Friday",
-        start: "2020-04-10",
-        end: "2020-04-10",
-        color: "red",
-      },
-      {
-        id: 3,
-        name: "Labour Day",
-        start: "2020-05-01",
-        end: "2020-05-01",
-        color: "red",
-      },
-      {
-        id: 4,
-        name: "Vesak Day",
-        start: "2020-05-07",
-        end: "2020-05-07",
-        color: "red",
-      },
-      {
-        id: 5,
-        name: "Hari Raya Puasa",
-        start: "2020-05-24",
-        end: "2020-05-24",
-        color: "red",
-      },
-      {
-        id: 6,
-        name: "Hari Raya Haji",
-        start: "2020-07-31",
-        end: "2020-07-31",
-        color: "red",
-      },
-      {
-        id: 7,
-        name: "National Day",
-        start: "2020-08-09",
-        end: "2020-08-09",
-        color: "red",
-      },
-      {
-        id: 8,
-        name: "Deepavali",
-        start: "2020-11-14",
-        end: "2020-11-14",
-        color: "red",
-      },
-      {
-        id: 9,
-        name: "Christmas Day",
-        start: "2020-12-25",
-        end: "2020-12-25",
-        color: "red",
-      },
-    ],
+    frontend_token:"ectivisecloudDBAuthCode:b84846daf467cede0ee462d04bcd0ade",
+    backend_api:"http://localhost:8081/api/",
+    holidays: [],
+    //   {
+    //     id: 0,
+    //     name: "New Year's Day",
+    //     start: "2020-01-01",
+    //     end: "2020-01-01",
+    //     color: "red",
+    //   },
+    //   {
+    //     id: 1,
+    //     name: "Chinese New Year",
+    //     start: "2020-01-25",
+    //     end: "2020-01-26",
+    //     color: "red",
+    //   },
+    //   {
+    //     id: 2,
+    //     name: "Good Friday",
+    //     start: "2020-04-10",
+    //     end: "2020-04-10",
+    //     color: "red",
+    //   },
+    //   {
+    //     id: 3,
+    //     name: "Labour Day",
+    //     start: "2020-05-01",
+    //     end: "2020-05-01",
+    //     color: "red",
+    //   },
+    //   {
+    //     id: 4,
+    //     name: "Vesak Day",
+    //     start: "2020-05-07",
+    //     end: "2020-05-07",
+    //     color: "red",
+    //   },
+    //   {
+    //     id: 5,
+    //     name: "Hari Raya Puasa",
+    //     start: "2020-05-24",
+    //     end: "2020-05-24",
+    //     color: "red",
+    //   },
+    //   {
+    //     id: 6,
+    //     name: "Hari Raya Haji",
+    //     start: "2020-07-31",
+    //     end: "2020-07-31",
+    //     color: "red",
+    //   },
+    //   {
+    //     id: 7,
+    //     name: "National Day",
+    //     start: "2020-08-09",
+    //     end: "2020-08-09",
+    //     color: "red",
+    //   },
+    //   {
+    //     id: 8,
+    //     name: "Deepavali",
+    //     start: "2020-11-14",
+    //     end: "2020-11-14",
+    //     color: "red",
+    //   },
+    //   {
+    //     id: 9,
+    //     name: "Christmas Day",
+    //     start: "2020-12-25",
+    //     end: "2020-12-25",
+    //     color: "red",
+    //   },
+    // ],
     accesspoints: [
       {
         location: {
@@ -520,7 +522,7 @@ export default new Vuex.Store({
     },
     editholiday(state, updatedholiday) {
       state.holidays = state.holidays.map((holiday) =>
-        holiday.id == updatedholiday.id ? updatedholiday : holiday
+        holiday._id == updatedholiday._id ? updatedholiday : holiday
       );
     },
     getholidays(state, holidays){
@@ -528,9 +530,100 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getholidays(context,holidays) {
-      context.commit('getholidays', holidays);
+    async getholidays(context) {
+
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      myHeaders.append("Cookie", "connect.sid=s%3A7NPet-nENCq5ctIhm_Syi52GBSaa-3vJ.V4Vlj1jg62rW%2FVMKJweGoSAv1kFlDrTMrQjCCMS8QB0");
+
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("token", this.state.frontend_token);
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      };
+
+    await fetch( this.state.backend_api+"holidays/get_holidays", requestOptions) 
+        .then(response => response.text())
+        .then(result => context.commit('getholidays', JSON.parse(result).data))
+        .catch(error => console.log('error', error));
+
+    },
+    async addholiday(context,holiday){
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      myHeaders.append("Cookie", "connect.sid=s%3A7NPet-nENCq5ctIhm_Syi52GBSaa-3vJ.V4Vlj1jg62rW%2FVMKJweGoSAv1kFlDrTMrQjCCMS8QB0");
+
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("token", this.state.frontend_token);
+      urlencoded.append("name", holiday.name);
+      urlencoded.append("start", holiday.start);
+      urlencoded.append("end", holiday.end);
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      };
+
+      await fetch(this.state.backend_api + "holidays/add_holiday", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    },
+    async editholiday(context, holiday){
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      myHeaders.append("Cookie", "connect.sid=s%3A6aSw4ozi-ySmAQi8eW_FADJmxcz8fmRu.hK%2FuyKLBs58Fg%2BlaFE6PGmvJmjrISSRZBjDlkiHZaxM");
+
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("token", this.state.frontend_token);
+      urlencoded.append("name", holiday.name);
+      urlencoded.append("start", holiday.start);
+      urlencoded.append("end", holiday.end);
+
+      var requestOptions = {
+        method: 'PUT',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      };
+       context.commit("editholiday", holiday)
+       await fetch( this.state.backend_api + "holidays/update_holiday", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    },
+    async deleteholiday (context,id) {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      myHeaders.append("Cookie", "connect.sid=s%3AX9pJPaklgse9cAXSN8PXlhaDPB0kw6k0.8BsvNq2PgtMrPweJNexgwaBAqLW6sI%2FU5V2TJlRMSb8");
+
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("token", this.state.frontend_token);
+      urlencoded.append("_id", id);
+
+      var requestOptions = {
+        method: 'DELETE',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      };
+
+      await fetch(this.state.backend_api +"holidays/delete_holiday", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
     }
+  },
+  getters: {
+    holidays(state){
+      return state.holidays;
+    },
   },
   modules: {},
 });

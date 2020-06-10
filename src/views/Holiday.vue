@@ -96,7 +96,7 @@
                     </v-btn>
                   </td>
                   <td>
-                    <v-btn class="px-0" text small @click="deleteholiday(holiday.id)">
+                    <v-btn class="px-0" text small @click="deleteholiday(holiday._id)">
                       <v-icon small>mdi-delete</v-icon>delete
                     </v-btn>
                   </td>
@@ -115,22 +115,18 @@ export default {
   name: "Holiday",
   data() {
     return {
-      cachedholiday:{},
       emptyholiday: {
-        id: 0,
         name: "",
         start: "",
         end: "",
-        color: "red"
       },
-      holidays:[],
       dialog: false,
       menu1: false,
       menu2: false,
       editing: false
     };
   },
-  mounted() {
+  created() {
     this.getholidays();
   },
   computed: {
@@ -145,34 +141,32 @@ export default {
       }
       return dates;
     },
+    holidays(){
+      return this.$store.getters.holidays;
+    },
   },
   methods: {
-    getholidays() {
-      this.holidays = this.$store.state.holidays;
+    getholidays(){
+      this.$store.dispatch('getholidays');
     },
     saveholiday() {
       if (this.editing == true) {
-
-        this.$store.commit("editholiday", this.emptyholiday);
+        this.$store.dispatch("editholiday", this.emptyholiday);
         this.editing = false;
       } else {
         
-        let max = this.holidays.length;
-        this.emptyholiday.id = max + 1;
-
-        this.$store.commit("addholiday", this.emptyholiday);
+        this.$store.dispatch("addholiday", this.emptyholiday);
       }
       this.dialog = false;
       this.getholidays();
       this.resetholiday()
     },
     deleteholiday(id) {
-      this.$store.commit("deleteholiday", id);
+      this.$store.dispatch("deleteholiday", id);
       this.getholidays();
     },
     editmode(holiday) {
       this.emptyholiday = Object.assign({}, holiday)
-      this.cachedholiday = this.emptyholiday;
       this.dialog = true;
       this.editing = true;
     },

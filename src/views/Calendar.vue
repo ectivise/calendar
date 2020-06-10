@@ -45,8 +45,8 @@
           ref="calendar"
           v-model="focus"
           color="primary"
-          :events="events"
-          :event-color="getEventColor"
+          :events="holidays"
+          event-color="red"
           :now="today"
           :type="type"
           @click:event="showEvent"
@@ -150,14 +150,19 @@
           timeZone: 'UTC', month: 'long',
         })
       },
+      holidays(){
+        return this.$store.getters.holidays;
+      },
+    },
+    created () {
+      this.getholidays();
     },
     mounted () {
       this.$refs.calendar.checkChange();
-      this.getholidays();
     },
     methods: {
       getholidays(){
-        this.events = this.$store.state.holidays;
+        this.$store.dispatch('getholidays');
       },
       viewDay ({ date }) {
         this.focus = date
