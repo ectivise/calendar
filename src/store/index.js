@@ -523,7 +523,14 @@ export default new Vuex.Store({
         holiday.id == updatedholiday.id ? updatedholiday : holiday
       );
     },
+    getholidays(state, holidays){
+      state.holidays = holidays;
+    }
   },
-  actions: {},
+  actions: {
+    getholidays(context,holidays) {
+      context.commit('getholidays', holidays);
+    }
+  },
   modules: {},
 });
