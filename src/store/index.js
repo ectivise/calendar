@@ -518,7 +518,7 @@ export default new Vuex.Store({
       state.holidays.push(holiday);
     },
     deleteholiday(state, id) {
-      state.holidays = state.holidays.filter((holiday) => holiday.id !== id);
+      state.holidays = state.holidays.filter((holiday) => holiday._id !== id);
     },
     editholiday(state, updatedholiday) {
       state.holidays = state.holidays.map((holiday) =>
@@ -564,11 +564,14 @@ export default new Vuex.Store({
         body: urlencoded,
         redirect: 'follow'
       };
+      // context.commit('add_holiday',holiday);
 
       await fetch(this.state.backend_api + "holiday/add_holiday", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
+
+      await context.dispatch('getholidays');
     },
     async editholiday(context, holiday){
       var myHeaders = new Headers();
@@ -587,11 +590,14 @@ export default new Vuex.Store({
         body: urlencoded,
         redirect: 'follow'
       };
-       context.commit("editholiday", holiday)
-       await fetch( this.state.backend_api + "holiday/update_holiday", requestOptions)
+      //  context.commit("editholiday", holiday);
+
+      await fetch( this.state.backend_api + "holiday/update_holiday", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
+
+      await context.dispatch('getholidays');
     },
     async deleteholiday (context,id) {
       var myHeaders = new Headers();
@@ -609,10 +615,13 @@ export default new Vuex.Store({
         redirect: 'follow'
       };
 
+      // context.commit('delete_holiday',id)
       await fetch(this.state.backend_api +"holiday/delete_holiday", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
+
+      await context.dispatch('getholidays');
     }
   },
   getters: {

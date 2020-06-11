@@ -77,7 +77,7 @@
       </v-row>
       <v-row justify="center">
         <div class="table">
-          <v-simple-table :dense="dense" :fixed-header="fixedHeader" :height="height">
+          <v-simple-table fixed-header>
             <template v-slot:default>
               <thead>
                 <tr>
@@ -158,7 +158,7 @@ export default {
         this.$store.dispatch("addholiday", this.emptyholiday);
       }
       this.dialog = false;
-      this.getholidays();
+      
       this.resetholiday()
     },
     deleteholiday(id) {

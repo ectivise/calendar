@@ -47,7 +47,7 @@
           color="primary"
           :events="holidays"
           event-color="red"
-          :now="today"
+          
           :type="type"
           @click:event="showEvent"
           @click:more="viewDay"
