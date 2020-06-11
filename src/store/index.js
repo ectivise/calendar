@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     frontend_token:"ectivisecloudDBAuthCode:b84846daf467cede0ee462d04bcd0ade",
-    backend_api:"http://localhost:8081/api/",
+    backend_api:"http://dev1.ectivisecloud.com:8081/api/",
     holidays: [],
     //   {
     //     id: 0,
@@ -533,14 +533,12 @@ export default new Vuex.Store({
     async getholidays(context) {
 
       var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
       myHeaders.append("Cookie", "connect.sid=s%3A7NPet-nENCq5ctIhm_Syi52GBSaa-3vJ.V4Vlj1jg62rW%2FVMKJweGoSAv1kFlDrTMrQjCCMS8QB0");
 
       var urlencoded = new URLSearchParams();
-      urlencoded.append("token", this.state.frontend_token);
 
       var requestOptions = {
-        method: 'POST',
+        method: 'GET',
         headers: myHeaders,
         body: urlencoded,
         redirect: 'follow'
