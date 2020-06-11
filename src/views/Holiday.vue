@@ -8,15 +8,23 @@
             <template v-slot:activator="{ on }">
               <v-btn color="primary" dark v-on="on">ADD HOLIDAY</v-btn>
             </template>
+
             <v-card>
+              <v-form v-model="valid">
               <v-card-title>
                 <span class="headline">Holiday</span>
               </v-card-title>
               <v-card-text>
                 <v-container grid-list-md>
-                  <v-layout wrap>
+                    <v-layout wrap>
                     <v-flex xs12 sm12 md12>
-                      <v-text-field label="Holiday Name*" v-model="emptyholiday.name" required></v-text-field>
+                      <v-text-field
+                        label="Holiday Name*"
+                        v-model="emptyholiday.name"
+                        :rules="[v => !!v || 'item is required']"
+                        required
+                        ref="name"
+                      ></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm6 md6>
                       <v-menu
@@ -35,6 +43,9 @@
                             readonly
                             v-bind="attrs"
                             v-on="on"
+                            :rules="daterules"
+                            ref="start"
+                            required
                           ></v-text-field>
                         </template>
                         <v-date-picker v-model="emptyholiday.start" @input="menu1 = false"></v-date-picker>
@@ -57,6 +68,9 @@
                             readonly
                             v-bind="attrs"
                             v-on="on"
+                            :rules="daterules"
+                            ref="end"
+                            required
                           ></v-text-field>
                         </template>
                         <v-date-picker v-model="emptyholiday.end" @input="menu2 = false"></v-date-picker>
@@ -69,9 +83,11 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">Close</v-btn>
-                <v-btn color="blue darken-1" text @click="saveholiday">Save</v-btn>
+                <v-btn color="blue darken-1" text :disabled="!valid" @click="saveholiday">Save</v-btn>
               </v-card-actions>
+              </v-form>
             </v-card>
+
           </v-dialog>
         </v-layout>
       </v-row>
@@ -115,21 +131,37 @@ export default {
   name: "Holiday",
   data() {
     return {
+      valid:false,
       emptyholiday: {
         name: "",
         start: "",
-        end: "",
+        end: ""
       },
       dialog: false,
       menu1: false,
       menu2: false,
-      editing: false
+      editing: false,
     };
   },
   created() {
     this.getholidays();
   },
   computed: {
+    daterules() {
+      const rules = [];
+
+      if (this.emptyholiday.start !== "" && this.emptyholiday.end !== "") {
+        const rule = () =>
+          this.emptyholiday.start <= this.emptyholiday.end ||
+          "Start Date must be earlier than End Date";
+        rules.push(rule);
+      }
+
+      const rule = v => !!v || "date is required";
+      rules.push(rule);
+
+      return rules;
+    },
     convertdate() {
       let dates = [];
       for (let i = 0; i < this.holidays.length; i++) {
@@ -141,42 +173,45 @@ export default {
       }
       return dates;
     },
-    holidays(){
+    holidays() {
       return this.$store.getters.holidays;
-    },
+    }
   },
   methods: {
-    getholidays(){
-      this.$store.dispatch('getholidays');
+    getholidays() {
+      this.$store.dispatch("getholidays");
     },
     saveholiday() {
-      if (this.editing == true) {
-        this.$store.dispatch("editholiday", this.emptyholiday);
-        this.editing = false;
-      } else {
+        if (this.editing == true) {
+          this.$store.dispatch("editholiday", this.emptyholiday);
+          this.editing = false;
+        } else {
+          this.$store.dispatch("addholiday", this.emptyholiday);
+        }
+
+        this.dialog = false;
+        this.resetholiday();
+  
         
-        this.$store.dispatch("addholiday", this.emptyholiday);
-      }
-      this.dialog = false;
+
       
-      this.resetholiday()
     },
     deleteholiday(id) {
       this.$store.dispatch("deleteholiday", id);
       this.getholidays();
     },
     editmode(holiday) {
-      this.emptyholiday = Object.assign({}, holiday)
+      this.emptyholiday = Object.assign({}, holiday);
       this.dialog = true;
       this.editing = true;
     },
-    close(){
-        this.dialog = false;
-        this.editing = false;
-        this.resetholiday()
+    close() {
+      this.dialog = false;
+      this.editing = false;
+      this.resetholiday();
     },
-    resetholiday(){
-        this.emptyholiday = {
+    resetholiday() {
+      this.emptyholiday = {
         id: 0,
         name: "",
         start: "",
