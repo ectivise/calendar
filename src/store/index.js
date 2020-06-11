@@ -535,16 +535,13 @@ export default new Vuex.Store({
       var myHeaders = new Headers();
       myHeaders.append("Cookie", "connect.sid=s%3A7NPet-nENCq5ctIhm_Syi52GBSaa-3vJ.V4Vlj1jg62rW%2FVMKJweGoSAv1kFlDrTMrQjCCMS8QB0");
 
-      var urlencoded = new URLSearchParams();
-
       var requestOptions = {
         method: 'GET',
         headers: myHeaders,
-        body: urlencoded,
         redirect: 'follow'
       };
 
-    await fetch( this.state.backend_api+"holidays/get_holidays", requestOptions) 
+    await fetch( this.state.backend_api+"holiday/get_holidaylist", requestOptions) 
         .then(response => response.text())
         .then(result => context.commit('getholidays', JSON.parse(result).data))
         .catch(error => console.log('error', error));
@@ -568,7 +565,7 @@ export default new Vuex.Store({
         redirect: 'follow'
       };
 
-      await fetch(this.state.backend_api + "holidays/add_holiday", requestOptions)
+      await fetch(this.state.backend_api + "holiday/add_holiday", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
@@ -591,7 +588,7 @@ export default new Vuex.Store({
         redirect: 'follow'
       };
        context.commit("editholiday", holiday)
-       await fetch( this.state.backend_api + "holidays/update_holiday", requestOptions)
+       await fetch( this.state.backend_api + "holiday/update_holiday", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
@@ -612,7 +609,7 @@ export default new Vuex.Store({
         redirect: 'follow'
       };
 
-      await fetch(this.state.backend_api +"holidays/delete_holiday", requestOptions)
+      await fetch(this.state.backend_api +"holiday/delete_holiday", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
