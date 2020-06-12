@@ -829,7 +829,10 @@ export default new Vuex.Store({
     },
     forgetpw(state){
       return state.forgetpw;
-    }
+    },
+    login(state){
+      return state.login;
+    },
   },
   modules: {},
 });

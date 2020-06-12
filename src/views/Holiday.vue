@@ -98,19 +98,19 @@
                 <tr>
                   <th class="text-center font-weight-bold">Name</th>
                   <th class="text-center font-weight-bold">Date</th>
-                  <th class="text-center font-weight-bold" colspan="2">Actions</th>
+                  <th class="text-center font-weight-bold" colspan="2" v-if="login">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(holiday,index) in holidays" :key="index">
                   <td>{{ holiday.name }}</td>
                   <td>{{ convertdate[index] }}</td>
-                  <td>
+                  <td v-if="login">
                     <v-btn class="px-0" text small @click="editmode(holiday)">
                       <v-icon small>mdi-pencil</v-icon>edit
                     </v-btn>
                   </td>
-                  <td>
+                  <td v-if="login">
                     <v-btn class="px-0" text small @click="deleteholiday(holiday._id)">
                       <v-icon small>mdi-delete</v-icon>delete
                     </v-btn>
@@ -146,6 +146,9 @@ export default {
     this.getholidays();
   },
   computed: {
+    login(){
+      return this.$store.getters.login;
+    },
     daterules() {
       const rules = [];
 
