@@ -3,8 +3,8 @@
     <v-col cols="lg6 md6 sm12 xs12">
       <v-form v-model="valid" >
         <h1>Login</h1>
-        <v-text-field label="Phone Number" v-model="logininfo.loginphonenumber" :rules="phonerules" required @focus="resetvalidation()"></v-text-field>
-        <v-text-field label="Password" v-model="logininfo.loginpassword" :rules="[v => !!v || 'item is required for Login']" required @focus="resetvalidation()"></v-text-field>
+        <v-text-field label="Phone Number" v-model="logininfo.phonenumber" :rules="phonerules" required @focus="resetvalidation()"></v-text-field>
+        <v-text-field label="Password" v-model="logininfo.password" :rules="[v => !!v || 'item is required for Login']" required @focus="resetvalidation()"></v-text-field>
         <v-btn class="primary ma-3" @click="handlelogin()" :disabled="!valid">login</v-btn>
 
         <!-- login with OTP -->
@@ -23,7 +23,7 @@
                 </v-row>
                 <v-row justify="center">
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field label="OTP" required v-model="logininfo.loginotp" :rules="otprules"></v-text-field>
+                    <v-text-field label="OTP" required v-model="logininfo.otp" :rules="otprules"></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row justify="center">
@@ -54,9 +54,9 @@ export default {
       valid:false,
       name: "Login",
       logininfo: {
-        loginphonenumber: "",
-        loginpassword: "",
-        loginotp:"",
+        phonenumber: "",
+        password: "",
+        otp:"",
       },
       dialog: false,
     };
@@ -71,7 +71,7 @@ export default {
           const rule = v => !!v || 'item is required'
           rules.push(rule);
           
-          if(this.logininfo.loginphonenumber !== ""){
+          if(this.logininfo.phonenumber !== ""){
               const rule = v => /(^[0-9]+$)/.test(v) || 'number only'
               rules.push(rule);
           }
@@ -83,7 +83,7 @@ export default {
           const rule = v => !!v || 'item is required'
           rules.push(rule);
           
-          if(this.logininfo.loginphonenumber !== ""){
+          if(this.logininfo.phonenumber !== ""){
               const rule1 = v => /(^[0-9]+$)/.test(v) || 'number only'
               rules.push(rule1);
 
@@ -93,7 +93,7 @@ export default {
           return rules
       },
       otpdisabled(){
-          if(this.logininfo.loginphonenumber !== "" && /(^[0-9]+$)/.test(this.logininfo.loginphonenumber)){
+          if(this.logininfo.phonenumber !== "" && /(^[0-9]+$)/.test(this.logininfo.phonenumber)){
               return false
           }
           return true

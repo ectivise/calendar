@@ -5,9 +5,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    loginstatus: false,
+    login: false,
     currentuser: {},
     loginresult: {},
+    signupresult:{},
     frontend_token: "ectivisecloudDBAuthCode:b84846daf467cede0ee462d04bcd0ade",
     backend_api: "http://dev1.ectivisecloud.com:8081/api/",
     snackbar: {},
@@ -536,10 +537,13 @@ export default new Vuex.Store({
       state.currentuser = data;
     },
     login(state) {
-      state.loginstatus = true;
+      state.login = true;
     },
     loginresult(state, result) {
       state.loginresult = result;
+    },
+    signupresult(state, result){
+      state.signupresult = result;
     },
     set_snackbar(state, snackbar) {
       state.snackbar = snackbar;
@@ -562,9 +566,9 @@ export default new Vuex.Store({
 
       var urlencoded = new URLSearchParams();
       urlencoded.append("type", "mobile");
-      urlencoded.append("mobile", logininfo.loginphonenumber);
+      urlencoded.append("mobile", logininfo.phonenumber);
       urlencoded.append("token", this.state.frontend_token);
-      urlencoded.append("password", logininfo.loginpassword);
+      urlencoded.append("password", logininfo.password);
 
       var requestOptions = {
         method: "POST",
@@ -594,7 +598,7 @@ export default new Vuex.Store({
 
       var urlencoded = new URLSearchParams();
       urlencoded.append("type", "getotp");
-      urlencoded.append("mobile", logininfo.loginphonenumber);
+      urlencoded.append("mobile", logininfo.phonenumber);
       urlencoded.append("token", this.state.frontend_token);
 
       var requestOptions = {
@@ -619,9 +623,9 @@ export default new Vuex.Store({
 
       var urlencoded = new URLSearchParams();
       urlencoded.append("type", "2fa");
-      urlencoded.append("mobile", logininfo.loginphonenumber);
+      urlencoded.append("mobile", logininfo.phonenumber);
       urlencoded.append("token", this.state.frontend_token);
-      urlencoded.append("otp", logininfo.loginotp);
+      urlencoded.append("otp", logininfo.otp);
 
       var requestOptions = {
         method: "POST",
@@ -639,6 +643,49 @@ export default new Vuex.Store({
         showing: true,
         text: this.state.loginresult.message,
       });
+    },
+    async usersignup(context,logininfo){
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      myHeaders.append("Cookie", "connect.sid=s%3AE4w7qjNojagoP8OQnts_rir14o_FGTi_.iyzKf8evzkls%2Fcr6ZKuoYfKLul5cXMWa2ctCFopzvoI");
+
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("token", this.state.frontend_token);
+      urlencoded.append("mobile", logininfo.phonenumber);
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      };
+
+      await fetch(this.state.backend_api + "users/signup", requestOptions)
+        .then(response => response.text())
+        .then(result => context.commit("signupresult", JSON.parse(result)))
+        .catch(error => console.log('error', error));
+    },
+    async saveuser(context, logininfo){
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      myHeaders.append("Cookie", "connect.sid=s%3AE4w7qjNojagoP8OQnts_rir14o_FGTi_.iyzKf8evzkls%2Fcr6ZKuoYfKLul5cXMWa2ctCFopzvoI");
+
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("token", this.state.signupresult.data.token);
+      urlencoded.append("otp", logininfo.otp);
+      urlencoded.append("password", logininfo.password);
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      };
+
+      await fetch( this.state.backend_api + "users/saveuser", requestOptions)
+        .then(response => response.text())
+        .then(result => context.commit("loginresult", JSON.parse(result)))
+        .catch(error => console.log('error', error));
     },
 
     // holiday
