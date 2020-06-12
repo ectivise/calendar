@@ -56,11 +56,26 @@
       >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title>Application</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn to="/register" class="mx-3" color="secondary">Register</v-btn>
+        <v-btn to="/login" class="mx-3" color="secondary">Login</v-btn>
+        
       </v-app-bar>
   
       <v-content>
         <router-view></router-view>
       </v-content>
+      <v-snackbar
+      v-model="snackbar.showing"
+      :timeout="0"
+      color="primary"
+      >
+      {{snackbar.text}}
+      
+      <v-btn text @click="snackbar.showing = false">
+        close
+      </v-btn>
+      </v-snackbar>
       <v-footer
         color="indigo"
         app
@@ -72,15 +87,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 
 export default {
-  
   name: 'App',
-
   components: {},
-
   data: () => ({
     drawer: false,
   }),
+  computed:{
+    ...mapState(['snackbar'])
+  },
+
 };
 </script>

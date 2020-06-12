@@ -5,8 +5,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    loginstatus:false,
+    currentuser:{},
+    loginresult:{},
     frontend_token:"ectivisecloudDBAuthCode:b84846daf467cede0ee462d04bcd0ade",
     backend_api:"http://dev1.ectivisecloud.com:8081/api/",
+    snackbar:{},
     holidays: [],
     //   {
     //     id: 0,
@@ -527,9 +531,60 @@ export default new Vuex.Store({
     },
     getholidays(state, holidays){
       state.holidays = holidays;
-    }
+    },
+    currentuser(state,data){
+      state.currentuser = data;
+    },
+    login(state){
+      state.loginstatus = true;
+    },
+    loginresult(state,result){
+      state.loginresult = result;
+    },
+    set_snackbar(state,snackbar){
+      state.snackbar = snackbar;
+    },
   },
   actions: {
+
+    // snackbar
+    setsnackbar(context,snackbar){
+      context.commit('set_snackbar',snackbar)
+    },
+
+    // user
+    async login(context,logininfo){
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      myHeaders.append("Cookie", "connect.sid=s%3A6UPYDjXEUo5eky3FCOhQEhbviuMb0Xf6.0Jr1kf6akwfzoziyUB9kycMrh0oaUlqJL1%2BVIBxXL3c");
+
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("type", "mobile");
+      urlencoded.append("mobile", logininfo.loginphonenumber);
+      urlencoded.append("token", this.state.frontend_token);
+      urlencoded.append("password", logininfo.loginpassword);
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      };
+
+      await fetch("http://dev1.ectivisecloud.com:8081/api/users/login", requestOptions)
+        .then(response => response.text())
+        .then(result => context.commit('loginresult', JSON.parse(result)))
+        .catch(error => console.log('error', error));
+
+      context.dispatch('setsnackbar', {
+          showing: true,
+          text: this.state.loginresult.message
+      });
+
+    },
+
+    // holiday
+
     async getholidays(context) {
 
       var myHeaders = new Headers();
@@ -545,8 +600,8 @@ export default new Vuex.Store({
         .then(response => response.text())
         .then(result => context.commit('getholidays', JSON.parse(result).data))
         .catch(error => console.log('error', error));
-
     },
+
     async addholiday(context,holiday){
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -564,7 +619,6 @@ export default new Vuex.Store({
         body: urlencoded,
         redirect: 'follow'
       };
-      // context.commit('add_holiday',holiday);
 
       await fetch(this.state.backend_api + "holiday/add_holiday", requestOptions)
         .then(response => response.text())
@@ -573,6 +627,7 @@ export default new Vuex.Store({
 
       await context.dispatch('getholidays');
     },
+
     async editholiday(context, holiday){
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -590,7 +645,7 @@ export default new Vuex.Store({
         body: urlencoded,
         redirect: 'follow'
       };
-      //  context.commit("editholiday", holiday);
+
 
       await fetch( this.state.backend_api + "holiday/update_holiday", requestOptions)
         .then(response => response.text())
@@ -599,6 +654,7 @@ export default new Vuex.Store({
 
       await context.dispatch('getholidays');
     },
+
     async deleteholiday (context,id) {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -615,18 +671,23 @@ export default new Vuex.Store({
         redirect: 'follow'
       };
 
-      // context.commit('delete_holiday',id)
+
       await fetch(this.state.backend_api +"holiday/delete_holiday", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
 
       await context.dispatch('getholidays');
-    }
+    },
+
+
   },
   getters: {
     holidays(state){
       return state.holidays;
+    },
+    loginmessage(state){
+      return state.loginresult.message;
     },
   },
   modules: {},

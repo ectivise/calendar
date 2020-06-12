@@ -19,7 +19,7 @@
                     <v-layout wrap>
                     <v-flex xs12 sm12 md12>
                       <v-text-field
-                        label="Holiday Name*"
+                        label="Holiday Name"
                         v-model="emptyholiday.name"
                         :rules="[v => !!v || 'item is required']"
                         required
@@ -78,7 +78,6 @@
                     </v-flex>
                   </v-layout>
                 </v-container>
-                <small>*indicates required field</small>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>

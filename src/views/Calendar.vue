@@ -46,7 +46,7 @@
           v-model="focus"
           color="primary"
           :events="holidays"
-          event-color="red"
+          event-color="purple"
           
           :type="type"
           @click:event="showEvent"
