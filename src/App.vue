@@ -46,6 +46,14 @@
               <v-list-item-title>Raspberry Pi</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item link to="/power">
+            <v-list-item-action>
+              <v-icon>mdi-speedometer</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Power Summary</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
       </v-navigation-drawer>
   

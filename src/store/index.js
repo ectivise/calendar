@@ -571,7 +571,7 @@ export default new Vuex.Store({
         redirect: 'follow'
       };
 
-      await fetch("http://dev1.ectivisecloud.com:8081/api/users/login", requestOptions)
+      await fetch(this.state.backend_api +"users/login", requestOptions)
         .then(response => response.text())
         .then(result => context.commit('loginresult', JSON.parse(result)))
         .catch(error => console.log('error', error));
@@ -581,6 +581,52 @@ export default new Vuex.Store({
           text: this.state.loginresult.message
       });
 
+    },
+    async logingetotp(context,logininfo){
+
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      myHeaders.append("Cookie", "connect.sid=s%3ATWx4m0WVrO_XDoQDLF7VwL0MZ4zyHjPN.jaOzAR5BM1eRIeLjrslG85GS7EC%2BY518B5gt%2B622jjE");
+
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("type", "getotp");
+      urlencoded.append("mobile", logininfo.loginphonenumber);
+      urlencoded.append("token", this.state.frontend_token);
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      };
+
+      await fetch( this.state.backend_api + "users/login", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    },
+    async login2fa(context, logininfo){
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      myHeaders.append("Cookie", "connect.sid=s%3AMR_ZnUOs2qRGLspZVUkCJx527ydYybpf.2sEwq6D5JvZbHR4yaoj837mAT7bhBuAMyIBJo%2BOp2DA");
+
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("type", "2fa");
+      urlencoded.append("mobile", logininfo.loginphonenumber);
+      urlencoded.append("token", this.state.frontend_token);
+      urlencoded.append("otp", logininfo.loginotp);
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      };
+
+      await fetch(this.state.backend_api + "users/login", requestOptions)
+        .then(response => response.text())
+        .then(result => context.commit('loginresult', JSON.parse(result)))
+        .catch(error => console.log('error', error));
     },
 
     // holiday
@@ -689,6 +735,9 @@ export default new Vuex.Store({
     loginmessage(state){
       return state.loginresult.message;
     },
+    loginerrorcode(state){
+      return state.loginresult.errorCode;
+    }
   },
   modules: {},
 });

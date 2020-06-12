@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-col cols="lg6 md6 sm12 xs12">
-      <v-form>
+      <v-form >
         <h1>Login</h1>
         <v-text-field label="Phone Number" v-model="logininfo.loginphonenumber" required></v-text-field>
         <v-text-field label="Password" v-model="logininfo.loginpassword" required></v-text-field>
@@ -10,7 +10,7 @@
         <!-- login with OTP -->
         <v-dialog v-model="dialog" persistent max-width="600px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark v-bind="attrs" v-on="on" class="mx-3">Login with OTP</v-btn>
+            <v-btn color="primary" dark v-bind="attrs" v-on="on" class="mx-3" @click="handleloginotp()">Login with OTP</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -23,7 +23,7 @@
                 </v-row>
                 <v-row justify="center">
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field label="OTP" required></v-text-field>
+                    <v-text-field label="OTP" required v-model="logininfo.loginotp"></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row justify="center">
@@ -36,7 +36,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-              <v-btn color="blue darken-1" text @click="dialog = false">Submit</v-btn>
+              <v-btn color="blue darken-1" text @click="loginotp()">Submit</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -55,6 +55,7 @@ export default {
       logininfo: {
         loginphonenumber: "",
         loginpassword: "",
+        loginotp:"",
       },
       dialog: false,
     };
@@ -65,8 +66,14 @@ export default {
       }
   },
   methods:{
-      handlelogin(){
-        this.$store.dispatch('login',this.logininfo)
+    handlelogin(){
+        this.$store.dispatch('login',this.logininfo);
+     },
+     handleloginotp(){
+        this.$store.dispatch('logingetotp',this.logininfo);
+     },
+     loginotp(){
+        this.$store.dispatch('login2fa',this.logininfo);
      },
   },
     
