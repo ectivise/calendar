@@ -5,12 +5,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    loginstatus:false,
-    currentuser:{},
-    loginresult:{},
-    frontend_token:"ectivisecloudDBAuthCode:b84846daf467cede0ee462d04bcd0ade",
-    backend_api:"http://dev1.ectivisecloud.com:8081/api/",
-    snackbar:{},
+    loginstatus: false,
+    currentuser: {},
+    loginresult: {},
+    frontend_token: "ectivisecloudDBAuthCode:b84846daf467cede0ee462d04bcd0ade",
+    backend_api: "http://dev1.ectivisecloud.com:8081/api/",
+    snackbar: {},
     holidays: [],
     //   {
     //     id: 0,
@@ -366,154 +366,154 @@ export default new Vuex.Store({
         location: {
           site: "Le Grove",
           building: "Main Block",
-          level: "1"
+          level: "1",
         },
         ip: "10.12.80.221",
         status: 0,
         runtime: 397440000,
-        user: 'admin',
-        password:  'admin@espl_1234',
-        APs:  'APlist'
+        user: "admin",
+        password: "admin@espl_1234",
+        APs: "APlist",
       },
       {
         name: "iot-lg-m02",
         location: {
           site: "Le Grove",
           building: "Main Block",
-          level: "1"
+          level: "1",
         },
         ip: "10.12.80.221",
         status: 0,
         runtime: 397440000,
-        user: 'admin',
-        password:  'admin@espl_1234',
-        APs:  'APlist'
+        user: "admin",
+        password: "admin@espl_1234",
+        APs: "APlist",
       },
       {
         name: "iot-lg-m03",
         location: {
           site: "Le Grove",
           building: "Main Block",
-          level: "1"
+          level: "1",
         },
         ip: "10.12.80.221",
         status: 0,
         runtime: 397440000,
-        user: 'admin',
-        password:  'admin@espl_1234',
-        APs:  'APlist'
+        user: "admin",
+        password: "admin@espl_1234",
+        APs: "APlist",
       },
       {
         name: "iot-lg-m04",
         location: {
           site: "Le Grove",
           building: "Main Block",
-          level: "1"
+          level: "1",
         },
         ip: "10.12.80.221",
         status: 1,
         runtime: 397440000,
-        user: 'admin',
-        password:  'admin@espl_1234',
-        APs:  'APlist'
+        user: "admin",
+        password: "admin@espl_1234",
+        APs: "APlist",
       },
       {
         name: "iot-lg-m05",
         location: {
           site: "Le Grove",
           building: "Main Block",
-          level: "1"
+          level: "1",
         },
         ip: "10.12.80.221",
         status: 0,
         runtime: 397440000,
-        user: 'admin',
-        password:  'admin@espl_1234',
-        APs:  'APlist'
+        user: "admin",
+        password: "admin@espl_1234",
+        APs: "APlist",
       },
       {
         name: "iot-lg-m06",
         location: {
           site: "Le Grove",
           building: "Main Block",
-          level: "1"
+          level: "1",
         },
         ip: "10.12.80.221",
         status: 0,
         runtime: 397440000,
-        user: 'admin',
-        password:  'admin@espl_1234',
-        APs:  'APlist'
+        user: "admin",
+        password: "admin@espl_1234",
+        APs: "APlist",
       },
       {
         name: "iot-lg-m07",
         location: {
           site: "Le Grove",
           building: "Main Block",
-          level: "1"
+          level: "1",
         },
         ip: "10.12.80.221",
         status: 1,
         runtime: 397440000,
-        user: 'admin',
-        password:  'admin@espl_1234',
-        APs:  'APlist'
+        user: "admin",
+        password: "admin@espl_1234",
+        APs: "APlist",
       },
       {
         name: "iot-lg-m08",
         location: {
           site: "Le Grove",
           building: "Main Block",
-          level: "1"
+          level: "1",
         },
         ip: "10.12.80.221",
         status: 0,
         runtime: 397440000,
-        user: 'admin',
-        password:  'admin@espl_1234',
-        APs:  'APlist'
+        user: "admin",
+        password: "admin@espl_1234",
+        APs: "APlist",
       },
       {
         name: "iot-lg-m09",
         location: {
           site: "Le Grove",
           building: "Main Block",
-          level: "1"
+          level: "1",
         },
         ip: "10.12.80.221",
         status: 1,
         runtime: 397440000,
-        user: 'admin',
-        password:  'admin@espl_1234',
-        APs:  'APlist'
+        user: "admin",
+        password: "admin@espl_1234",
+        APs: "APlist",
       },
       {
         name: "iot-lg-m10",
         location: {
           site: "Le Grove",
           building: "Main Block",
-          level: "1"
+          level: "1",
         },
         ip: "10.12.80.221",
         status: 0,
         runtime: 397440000,
-        user: 'admin',
-        password:  'admin@espl_1234',
-        APs:  'APlist'
+        user: "admin",
+        password: "admin@espl_1234",
+        APs: "APlist",
       },
       {
         name: "iot-lg-m11",
         location: {
           site: "Le Grove",
           building: "Main Block",
-          level: "1"
+          level: "1",
         },
         ip: "10.12.80.221",
         status: 2,
         runtime: 397440000,
-        user: 'admin',
-        password:  'admin@espl_1234',
-        APs:  'APlist'
+        user: "admin",
+        password: "admin@espl_1234",
+        APs: "APlist",
       },
     ],
   },
@@ -529,34 +529,36 @@ export default new Vuex.Store({
         holiday._id == updatedholiday._id ? updatedholiday : holiday
       );
     },
-    getholidays(state, holidays){
+    getholidays(state, holidays) {
       state.holidays = holidays;
     },
-    currentuser(state,data){
+    currentuser(state, data) {
       state.currentuser = data;
     },
-    login(state){
+    login(state) {
       state.loginstatus = true;
     },
-    loginresult(state,result){
+    loginresult(state, result) {
       state.loginresult = result;
     },
-    set_snackbar(state,snackbar){
+    set_snackbar(state, snackbar) {
       state.snackbar = snackbar;
     },
   },
   actions: {
-
     // snackbar
-    setsnackbar(context,snackbar){
-      context.commit('set_snackbar',snackbar)
+    setsnackbar(context, snackbar) {
+      context.commit("set_snackbar", snackbar);
     },
 
     // user
-    async login(context,logininfo){
+    async login(context, logininfo) {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-      myHeaders.append("Cookie", "connect.sid=s%3A6UPYDjXEUo5eky3FCOhQEhbviuMb0Xf6.0Jr1kf6akwfzoziyUB9kycMrh0oaUlqJL1%2BVIBxXL3c");
+      myHeaders.append(
+        "Cookie",
+        "connect.sid=s%3A6UPYDjXEUo5eky3FCOhQEhbviuMb0Xf6.0Jr1kf6akwfzoziyUB9kycMrh0oaUlqJL1%2BVIBxXL3c"
+      );
 
       var urlencoded = new URLSearchParams();
       urlencoded.append("type", "mobile");
@@ -565,28 +567,30 @@ export default new Vuex.Store({
       urlencoded.append("password", logininfo.loginpassword);
 
       var requestOptions = {
-        method: 'POST',
+        method: "POST",
         headers: myHeaders,
         body: urlencoded,
-        redirect: 'follow'
+        redirect: "follow",
       };
 
-      await fetch(this.state.backend_api +"users/login", requestOptions)
-        .then(response => response.text())
-        .then(result => context.commit('loginresult', JSON.parse(result)))
-        .catch(error => console.log('error', error));
+      await fetch(this.state.backend_api + "users/login", requestOptions)
+        .then((response) => response.text())
+        .then((result) => context.commit("loginresult", JSON.parse(result)))
+        .catch((error) => console.log("error", error));
 
-      context.dispatch('setsnackbar', {
-          showing: true,
-          text: this.state.loginresult.message
+      context.dispatch("setsnackbar", {
+        showing: true,
+        text: this.state.loginresult.message,
       });
-
     },
-    async logingetotp(context,logininfo){
 
+    async logingetotp(context, logininfo) {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-      myHeaders.append("Cookie", "connect.sid=s%3ATWx4m0WVrO_XDoQDLF7VwL0MZ4zyHjPN.jaOzAR5BM1eRIeLjrslG85GS7EC%2BY518B5gt%2B622jjE");
+      myHeaders.append(
+        "Cookie",
+        "connect.sid=s%3ATWx4m0WVrO_XDoQDLF7VwL0MZ4zyHjPN.jaOzAR5BM1eRIeLjrslG85GS7EC%2BY518B5gt%2B622jjE"
+      );
 
       var urlencoded = new URLSearchParams();
       urlencoded.append("type", "getotp");
@@ -594,21 +598,24 @@ export default new Vuex.Store({
       urlencoded.append("token", this.state.frontend_token);
 
       var requestOptions = {
-        method: 'POST',
+        method: "POST",
         headers: myHeaders,
         body: urlencoded,
-        redirect: 'follow'
+        redirect: "follow",
       };
 
-      await fetch( this.state.backend_api + "users/login", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+      await fetch(this.state.backend_api + "users/login", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
     },
-    async login2fa(context, logininfo){
+    async login2fa(context, logininfo) {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-      myHeaders.append("Cookie", "connect.sid=s%3AMR_ZnUOs2qRGLspZVUkCJx527ydYybpf.2sEwq6D5JvZbHR4yaoj837mAT7bhBuAMyIBJo%2BOp2DA");
+      myHeaders.append(
+        "Cookie",
+        "connect.sid=s%3AMR_ZnUOs2qRGLspZVUkCJx527ydYybpf.2sEwq6D5JvZbHR4yaoj837mAT7bhBuAMyIBJo%2BOp2DA"
+      );
 
       var urlencoded = new URLSearchParams();
       urlencoded.append("type", "2fa");
@@ -617,41 +624,56 @@ export default new Vuex.Store({
       urlencoded.append("otp", logininfo.loginotp);
 
       var requestOptions = {
-        method: 'POST',
+        method: "POST",
         headers: myHeaders,
         body: urlencoded,
-        redirect: 'follow'
+        redirect: "follow",
       };
 
       await fetch(this.state.backend_api + "users/login", requestOptions)
-        .then(response => response.text())
-        .then(result => context.commit('loginresult', JSON.parse(result)))
-        .catch(error => console.log('error', error));
+        .then((response) => response.text())
+        .then((result) => context.commit("loginresult", JSON.parse(result)))
+        .catch((error) => console.log("error", error));
+
+      context.dispatch("setsnackbar", {
+        showing: true,
+        text: this.state.loginresult.message,
+      });
     },
 
     // holiday
 
     async getholidays(context) {
-
       var myHeaders = new Headers();
-      myHeaders.append("Cookie", "connect.sid=s%3A7NPet-nENCq5ctIhm_Syi52GBSaa-3vJ.V4Vlj1jg62rW%2FVMKJweGoSAv1kFlDrTMrQjCCMS8QB0");
+      myHeaders.append(
+        "Cookie",
+        "connect.sid=s%3A7NPet-nENCq5ctIhm_Syi52GBSaa-3vJ.V4Vlj1jg62rW%2FVMKJweGoSAv1kFlDrTMrQjCCMS8QB0"
+      );
 
       var requestOptions = {
-        method: 'GET',
+        method: "GET",
         headers: myHeaders,
-        redirect: 'follow'
+        redirect: "follow",
       };
 
-    await fetch( this.state.backend_api+"holiday/get_holidaylist", requestOptions) 
-        .then(response => response.text())
-        .then(result => context.commit('getholidays', JSON.parse(result).data))
-        .catch(error => console.log('error', error));
+      await fetch(
+        this.state.backend_api + "holiday/get_holidaylist",
+        requestOptions
+      )
+        .then((response) => response.text())
+        .then((result) =>
+          context.commit("getholidays", JSON.parse(result).data)
+        )
+        .catch((error) => console.log("error", error));
     },
 
-    async addholiday(context,holiday){
+    async addholiday(context, holiday) {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-      myHeaders.append("Cookie", "connect.sid=s%3A7NPet-nENCq5ctIhm_Syi52GBSaa-3vJ.V4Vlj1jg62rW%2FVMKJweGoSAv1kFlDrTMrQjCCMS8QB0");
+      myHeaders.append(
+        "Cookie",
+        "connect.sid=s%3A7NPet-nENCq5ctIhm_Syi52GBSaa-3vJ.V4Vlj1jg62rW%2FVMKJweGoSAv1kFlDrTMrQjCCMS8QB0"
+      );
 
       var urlencoded = new URLSearchParams();
       urlencoded.append("token", this.state.frontend_token);
@@ -660,24 +682,30 @@ export default new Vuex.Store({
       urlencoded.append("end", holiday.end);
 
       var requestOptions = {
-        method: 'POST',
+        method: "POST",
         headers: myHeaders,
         body: urlencoded,
-        redirect: 'follow'
+        redirect: "follow",
       };
 
-      await fetch(this.state.backend_api + "holiday/add_holiday", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+      await fetch(
+        this.state.backend_api + "holiday/add_holiday",
+        requestOptions
+      )
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
 
-      await context.dispatch('getholidays');
+      await context.dispatch("getholidays");
     },
 
-    async editholiday(context, holiday){
+    async editholiday(context, holiday) {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-      myHeaders.append("Cookie", "connect.sid=s%3A6aSw4ozi-ySmAQi8eW_FADJmxcz8fmRu.hK%2FuyKLBs58Fg%2BlaFE6PGmvJmjrISSRZBjDlkiHZaxM");
+      myHeaders.append(
+        "Cookie",
+        "connect.sid=s%3A6aSw4ozi-ySmAQi8eW_FADJmxcz8fmRu.hK%2FuyKLBs58Fg%2BlaFE6PGmvJmjrISSRZBjDlkiHZaxM"
+      );
 
       var urlencoded = new URLSearchParams();
       urlencoded.append("token", this.state.frontend_token);
@@ -686,58 +714,63 @@ export default new Vuex.Store({
       urlencoded.append("end", holiday.end);
 
       var requestOptions = {
-        method: 'PUT',
+        method: "PUT",
         headers: myHeaders,
         body: urlencoded,
-        redirect: 'follow'
+        redirect: "follow",
       };
 
+      await fetch(
+        this.state.backend_api + "holiday/update_holiday",
+        requestOptions
+      )
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
 
-      await fetch( this.state.backend_api + "holiday/update_holiday", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-
-      await context.dispatch('getholidays');
+      await context.dispatch("getholidays");
     },
 
-    async deleteholiday (context,id) {
+    async deleteholiday(context, id) {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-      myHeaders.append("Cookie", "connect.sid=s%3AX9pJPaklgse9cAXSN8PXlhaDPB0kw6k0.8BsvNq2PgtMrPweJNexgwaBAqLW6sI%2FU5V2TJlRMSb8");
+      myHeaders.append(
+        "Cookie",
+        "connect.sid=s%3AX9pJPaklgse9cAXSN8PXlhaDPB0kw6k0.8BsvNq2PgtMrPweJNexgwaBAqLW6sI%2FU5V2TJlRMSb8"
+      );
 
       var urlencoded = new URLSearchParams();
       urlencoded.append("token", this.state.frontend_token);
       urlencoded.append("_id", id);
 
       var requestOptions = {
-        method: 'DELETE',
+        method: "DELETE",
         headers: myHeaders,
         body: urlencoded,
-        redirect: 'follow'
+        redirect: "follow",
       };
 
+      await fetch(
+        this.state.backend_api + "holiday/delete_holiday",
+        requestOptions
+      )
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
 
-      await fetch(this.state.backend_api +"holiday/delete_holiday", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-
-      await context.dispatch('getholidays');
+      await context.dispatch("getholidays");
     },
-
-
   },
   getters: {
-    holidays(state){
+    holidays(state) {
       return state.holidays;
     },
-    loginmessage(state){
+    loginmessage(state) {
       return state.loginresult.message;
     },
-    loginerrorcode(state){
+    loginerrorcode(state) {
       return state.loginresult.errorCode;
-    }
+    },
   },
   modules: {},
 });
