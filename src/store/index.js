@@ -686,6 +686,11 @@ export default new Vuex.Store({
         .then(response => response.text())
         .then(result => context.commit("loginresult", JSON.parse(result)))
         .catch(error => console.log('error', error));
+
+        context.dispatch("setsnackbar", {
+          showing: true,
+          text: this.state.loginresult.message,
+        });
     },
 
     // holiday
