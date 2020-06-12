@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-col cols="lg6 md6 sm12 xs12">
+    <v-col cols="12" lg="4" md="6" sm="12" offset-lg="3" offset-md="2" offset-sm="0" offset="0">
       <v-form v-model="valid" >
         <h1>Login</h1>
         <v-text-field label="Phone Number" v-model="logininfo.phonenumber" :rules="phonerules" required @focus="resetvalidation()"></v-text-field>
@@ -41,7 +41,7 @@
           </v-card>
         </v-dialog>
 
-        <v-btn color="blue darken-1" text @click="dialog = false">Forgot Password</v-btn>
+        <v-btn color="blue darken-1" text @click="handleforgetpw">Forgot Password</v-btn>
       </v-form>
     </v-col>
   </v-container>
@@ -122,6 +122,11 @@ export default {
      },
      resetvalidation(){
          this.valid=false;
+     },
+     handleforgetpw(){
+        this.$store.commit('forgetpw',true);
+        let url = "/register";
+        this.$router.push(url);
      },
   },
     

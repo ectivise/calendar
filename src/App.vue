@@ -100,6 +100,13 @@ import { mapState } from 'vuex'
 export default {
   name: 'App',
   components: {},
+  watch: {
+    $route(to, from) {
+      if(from.fullPath == "/register"  && to.fullPath !== from.fullPath) {
+        this.$store.commit("forgetpw",false);
+      }
+    },
+  },
   data: () => ({
     drawer: false,
   }),

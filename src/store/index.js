@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    forgetpw: false,
     login: false,
     currentuser: {},
     loginresult: {},
@@ -548,6 +549,9 @@ export default new Vuex.Store({
     set_snackbar(state, snackbar) {
       state.snackbar = snackbar;
     },
+    forgetpw(state,boolean){
+      state.forgetpw = boolean;
+    }
   },
   actions: {
     // snackbar
@@ -823,6 +827,9 @@ export default new Vuex.Store({
     loginerrorcode(state) {
       return state.loginresult.errorCode;
     },
+    forgetpw(state){
+      return state.forgetpw;
+    }
   },
   modules: {},
 });
