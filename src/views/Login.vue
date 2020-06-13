@@ -109,7 +109,7 @@ export default {
         await this.$store.dispatch('login',this.logininfo);
         if (this.$store.getters.loginerrorcode == 0) {
             this.$store.commit("login");
-            let url = "/holiday";
+            let url = "/";
             this.$router.push(url);
             this.loginstatus();
         }
@@ -122,7 +122,7 @@ export default {
         if (this.$store.getters.loginerrorcode == 0) {
             this.dialog = false;
             this.$store.commit("login");
-            let url = "/holiday";
+            let url = "/";
             this.$router.push(url);
             this.loginstatus();
         }

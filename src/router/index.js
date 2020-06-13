@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+// import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
   const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
+  // {
+  //   path: '/',
+  //   name: 'Home',
+  //   component: Home
+  // },
   {
     path: '/calendar',
     name: 'Calendar',
@@ -19,7 +19,7 @@ Vue.use(VueRouter)
     component: () => import(/* webpackChunkName: "about" */ '../views/Calendar.vue')
   },
   {
-    path: '/holiday',
+    path: '/',
     name: 'Holiday',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -69,7 +69,7 @@ Vue.use(VueRouter)
 ]
 
 const router = new VueRouter({
-  mode: "history",
+  mode: "hash",
   routes
 })
 
