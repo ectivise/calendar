@@ -1,11 +1,11 @@
 <template>
   <v-container>
     <v-col cols="12" lg="4" md="6" sm="12" offset-lg="3" offset-md="2" offset-sm="0" offset="0">
-      <v-form v-model="valid" >
+      <v-form>
         <h1>Login</h1>
         <v-text-field label="Phone Number" v-model="logininfo.phonenumber" :rules="phonerules" required @focus="resetvalidation()"></v-text-field>
         <v-text-field label="Password" v-model="logininfo.password" :rules="[v => !!v || 'item is required for Login']" required @focus="resetvalidation()" type="password"></v-text-field>
-        <v-btn class="primary ma-3" @click="handlelogin()" :disabled="!valid">login</v-btn>
+        <v-btn class="primary ma-3" @click="handlelogin()" :disabled="logindisabled">login</v-btn>
 
         <!-- login with OTP -->
         <v-dialog v-model="dialog" persistent max-width="600px">
@@ -51,7 +51,6 @@
 export default {
   data() {
     return {
-      valid:false,
       name: "Login",
       logininfo: {
         phonenumber: "",
@@ -98,6 +97,12 @@ export default {
           }
           return true
       },
+      logindisabled(){
+        if(this.logininfo.phonenumber !== "" && /(^[0-9]+$)/.test(this.logininfo.phonenumber) && this.logininfo.password !== ""){
+          return false
+        }
+        return true
+      }
   },
   methods:{
     async handlelogin(){
@@ -106,6 +111,7 @@ export default {
             this.$store.commit("login");
             let url = "/holiday";
             this.$router.push(url);
+            this.loginstatus();
         }
       },
      handleloginotp(){
@@ -118,6 +124,7 @@ export default {
             this.$store.commit("login");
             let url = "/holiday";
             this.$router.push(url);
+            this.loginstatus();
         }
      },
      resetvalidation(){
@@ -128,6 +135,12 @@ export default {
         let url = "/register";
         this.$router.push(url);
      },
+     loginstatus(){
+      var obj = {
+        login: this.$store.getters.login,
+      }
+      sessionStorage.setItem('data', JSON.stringify(obj))
+    },
   },
     
 };

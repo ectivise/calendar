@@ -134,8 +134,15 @@ export default {
         this.$router.push(url);
         this.$store.commit("forgetpw", false);
         this.$store.commit("login");
+        this.loginstatus();
       }
-    }
+    },
+    loginstatus(){
+      var obj = {
+        login: this.$store.getters.login,
+      }
+      sessionStorage.setItem('data', JSON.stringify(obj))
+    },
   }
 };
 </script>

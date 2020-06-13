@@ -19,6 +19,8 @@ npm run build
 ```
 npm run lint
 ```
+known bugs:
+validation bug after close and save form.
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

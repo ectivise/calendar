@@ -4,7 +4,7 @@
       <v-row>
         <v-layout row justify-center>
           <h1 class="mx-2">Public Holiday</h1>
-          <v-dialog v-model="dialog" persistent max-width="600px">
+          <v-dialog v-model="dialog" persistent max-width="600px" v-if="login">
             <template v-slot:activator="{ on }">
               <v-btn color="primary" dark v-on="on">ADD HOLIDAY</v-btn>
             </template>
@@ -68,7 +68,7 @@
                             readonly
                             v-bind="attrs"
                             v-on="on"
-                            :rules="daterules"
+                            :rules="daterules2"
                             ref="end"
                             required
                           ></v-text-field>
@@ -164,6 +164,21 @@ export default {
 
       return rules;
     },
+    daterules2() {
+      const rules = [];
+
+      if (this.emptyholiday.start !== "" && this.emptyholiday.end !== "") {
+        const rule = () =>
+          this.emptyholiday.end >= this.emptyholiday.start ||
+          "End Date must be later than Start Date";
+        rules.push(rule);
+      }
+
+      const rule = v => !!v || "date is required";
+      rules.push(rule);
+
+      return rules;
+    },
     convertdate() {
       let dates = [];
       for (let i = 0; i < this.holidays.length; i++) {
@@ -193,6 +208,7 @@ export default {
 
         this.dialog = false;
         this.resetholiday();
+        this.resetvalidation();
   
         
 
@@ -211,15 +227,18 @@ export default {
       this.dialog = false;
       this.editing = false;
       this.resetholiday();
+      this.resetvalidation();
     },
     resetholiday() {
       this.emptyholiday = {
-        id: 0,
         name: "",
         start: "",
         end: "",
-        color: "red"
       };
+    },
+    resetvalidation(){
+      console.log('reset')
+      return true
     }
   }
 };

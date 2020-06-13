@@ -68,7 +68,7 @@
 
         <v-btn v-if="login" @click="logout()">Log Out</v-btn>
         <div v-else>
-          <v-btn to="/register" class="mx-3" color="secondary">Register</v-btn>
+          <!-- <v-btn to="/register" class="mx-3" color="secondary">Register</v-btn> -->
           <v-btn to="/login" class="mx-3" color="secondary">Login</v-btn>
         </div>
         
@@ -104,6 +104,9 @@ import { mapState } from 'vuex'
 export default {
   name: 'App',
   components: {},
+  created() {
+    this.syncsession();
+  },
   watch: {
     $route(to, from) {
       if(from.fullPath == "/register"  && to.fullPath !== from.fullPath) {
@@ -121,8 +124,19 @@ export default {
     ...mapState(['snackbar'])
   },
   methods:{
-    logout(){
-      this.$store.dispatch("logout",this.$store.getters.currentuser.mobile);
+    async logout(){
+      // await this.$store.dispatch("logout",this.$store.getters.currentuser.mobile);
+      this.$store.commit('logout');
+      this.loginstatus();
+    },
+    loginstatus(){
+      var obj = {
+        login: this.$store.getters.login,
+      }
+      sessionStorage.setItem('data', JSON.stringify(obj))
+    },
+    syncsession(){
+      this.$store.commit('synclogin',JSON.parse(sessionStorage.getItem('data')).login)
     },
   },
 };

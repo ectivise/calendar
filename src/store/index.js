@@ -558,6 +558,9 @@ export default new Vuex.Store({
     logoutresult(state,result){
       state.logoutresult = result 
     },
+    synclogin(state,loginstatus){
+      state.login = loginstatus;
+    },
   },
   actions: {
     // snackbar
