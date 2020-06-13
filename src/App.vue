@@ -14,20 +14,20 @@
               <v-list-item-title>Home</v-list-item-title>
             </v-list-item-content>
           </v-list-item> -->
-          <v-list-item link to="/calendar">
-            <v-list-item-action>
-              <v-icon>mdi-calendar</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Calendar</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
           <v-list-item link to="/holiday">
             <v-list-item-action>
               <v-icon>mdi-calendar-weekend-outline</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Public Holidays</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item link to="/calendar">
+            <v-list-item-action>
+              <v-icon>mdi-calendar</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Calendar</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <!-- <v-list-item link to="/access_point">
