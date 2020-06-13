@@ -44,6 +44,11 @@
                       <v-text-field label="OTP" required v-model="logininfo.otp" :rules="otprules"></v-text-field>
                     </v-col>
                   </v-row>
+                  <v-row justify="center">
+                  <v-col cols="12" sm="6" md="6" offset="3">
+                    <v-btn text @click="handlesignup()">Resend OTP</v-btn>
+                  </v-col>
+                </v-row>
                 </v-container>
               </v-card-text>
               <v-card-actions>
@@ -125,7 +130,7 @@ export default {
     async saveuser() {
       await this.$store.dispatch("saveuser", this.logininfo);
       if (this.$store.getters.loginerrorcode == 0) {
-        let url = "/";
+        let url = "/holiday";
         this.$router.push(url);
         this.$store.commit("forgetpw", false);
         this.$store.commit("login");

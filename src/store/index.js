@@ -7,9 +7,9 @@ export default new Vuex.Store({
   state: {
     forgetpw: false,
     login: false,
-    currentuser: {},
     loginresult: {},
     signupresult:{},
+    logoutresult:{},
     frontend_token: "ectivisecloudDBAuthCode:b84846daf467cede0ee462d04bcd0ade",
     backend_api: "http://dev1.ectivisecloud.com:8081/api/",
     snackbar: {},
@@ -540,6 +540,9 @@ export default new Vuex.Store({
     login(state) {
       state.login = true;
     },
+    logout(state){
+      state.login = false;
+    },
     loginresult(state, result) {
       state.loginresult = result;
     },
@@ -551,7 +554,10 @@ export default new Vuex.Store({
     },
     forgetpw(state,boolean){
       state.forgetpw = boolean;
-    }
+    },
+    logoutresult(state,result){
+      state.logoutresult = result 
+    },
   },
   actions: {
     // snackbar
@@ -697,6 +703,34 @@ export default new Vuex.Store({
         });
     },
 
+    async logout(context,mobile){
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      myHeaders.append("Cookie", "connect.sid=s%3As38Q-aI_9Mb9uKZJ2lgDsUInsazqxbUs.7TAPgTIFlXpvZBa66zZqzrWhC54Gjw%2BE1Az8dm5p8f0");
+
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("token", this.state.frontend_token);
+      urlencoded.append("mobile", mobile);
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      };
+
+      await fetch( this.state.backend_api + "users/logout", requestOptions)
+        .then(response => response.text())
+        .then(result => context.commit("logoutresult", JSON.parse(result)))
+        .catch(error => console.log('error', error));
+
+      context.commit('logout');
+      context.dispatch("setsnackbar", {
+          showing: true,
+          text: this.state.logoutresult.message,
+        });
+    },
+
     // holiday
 
     async getholidays(context) {
@@ -816,6 +850,7 @@ export default new Vuex.Store({
 
       await context.dispatch("getholidays");
     },
+
   },
   getters: {
     holidays(state) {
@@ -833,6 +868,9 @@ export default new Vuex.Store({
     login(state){
       return state.login;
     },
+    currentuser(state){
+      return state.loginresult.data;
+    }
   },
   modules: {},
 });

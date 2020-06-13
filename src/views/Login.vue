@@ -28,7 +28,7 @@
                 </v-row>
                 <v-row justify="center">
                   <v-col cols="12" sm="6" md="6" offset="3">
-                    <v-btn text>Resend OTP</v-btn>
+                    <v-btn text @click="handleloginotp()">Resend OTP</v-btn>
                   </v-col>
                 </v-row>
               </v-container>
@@ -104,7 +104,7 @@ export default {
         await this.$store.dispatch('login',this.logininfo);
         if (this.$store.getters.loginerrorcode == 0) {
             this.$store.commit("login");
-            let url = "/";
+            let url = "/holiday";
             this.$router.push(url);
         }
       },
@@ -116,7 +116,7 @@ export default {
         if (this.$store.getters.loginerrorcode == 0) {
             this.dialog = false;
             this.$store.commit("login");
-            let url = "/";
+            let url = "/holiday";
             this.$router.push(url);
         }
      },
